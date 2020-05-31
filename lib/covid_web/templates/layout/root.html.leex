@@ -10,23 +10,62 @@
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </head>
   <body>
-    <header>
-      <nav>
-        <span>COVID Questionnaire</span>
-        <div style='float: right;'>
-          <%= if signed_in?(@conn) do %>
-            <%= link "Questionnaire", to: "/questionnaire"%>
-            <%= link "Workers", to: "/workers"%>
-            <%= link "Reports", to: "/reports"%>
-            <%= link "Sign out", to: Routes.session_path(@conn, :delete), method: :delete %>
+    <nav>
+      <ul>
+        <li class="logo">COVID Questionnaire</li>
+        <%= if signed_in?(@conn) do %>
+          <li><%= link "Questionnaire", to: "/questionnaire"%></li>
+          <li><%= link "Workers", to: "/workers"%></li>
+          <li><%= link "Reports", to: "/reports"%></li>
+          <div style='float: right;'>
+            <li><%= link "Sign out", to: Routes.session_path(@conn, :delete), method: :delete %></li>
           <% else %>
-            <%= link "Sign In", to: Routes.session_path(@conn, :new) %>
+            <li><%= link "Sign In", to: Routes.session_path(@conn, :new) %></li>
             |
-            <%= link "Sign up", to: Routes.user_path(@conn, :new) %>
-          <% end %>
-        </div>
-      </nav>
-    </header>
+            <li><%= link "Sign up", to: Routes.user_path(@conn, :new) %></li>
+          </div>
+        <% end %>
+      </ul>
+    </nav>
     <%= @inner_content %>
   </body>
 </html>
+
+<style>
+  body {
+    margin: 0;
+  }
+
+  nav {
+    overflow: hidden;
+    background-color: #333;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  li {
+    display: inline;
+    float: left;
+    margin-bottom: 0px;
+  }
+
+  li a {
+    display: block;
+    color: white;
+    padding: 15px 15px;
+    text-decoration: none;
+  }
+
+  li a:hover {
+    background-color: #111;
+  }
+  
+  .logo {
+    display: inline;
+    color: white;
+    padding: 15px 15px;
+  }
+</style>
